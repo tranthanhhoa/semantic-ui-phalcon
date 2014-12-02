@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Volt
- * @copyright Copyright (c) 2011 - 2014 Aleksandr Torosh (http://wezoom.com.ua)
- * @author Aleksandr Torosh <webtorua@gmail.com>
- */
 
 namespace Application\Mvc\View\Engine;
 
@@ -28,7 +23,7 @@ class Volt extends \Phalcon\Mvc\View\Engine\Volt
             return "LANG_SUFFIX";
         });
         $compiler->addFunction('helper', function() {
-            return '(new Application\Mvc\Helper())';
+            return '(new application\Mvc\Helper())';
         });
         $compiler->addFunction('translate', function($resolvedArgs) {
             return '$this->helper->translate(' . $resolvedArgs . ')';

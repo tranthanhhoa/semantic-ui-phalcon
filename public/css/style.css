@@ -1,0 +1,19 @@
+.container {
+  width: auto;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 8%;
+  padding-right: 8%; }
+
+.field {
+  position: relative; }
+  .field.error .prompt {
+    opacity: 0;
+    position: absolute !important;
+    right: 0;
+    top: 100%;
+    z-index: 99; }
+  .field.error .visible {
+    opacity: 1; }
+
+/*# sourceMappingURL=style.css.map */

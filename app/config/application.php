@@ -24,7 +24,7 @@ $env = array(
 $config = array(
     'loader'   => array(
         'namespaces' => array(
-            'Application' => APPLICATION_PATH . '/modules/Application',
+            'Application' => APPLICATION_PATH . '/modules/application',
             'FrontEnd'       => APPLICATION_PATH . '/modules/frontend',
             'BackEnd'       => APPLICATION_PATH . '/modules/backend',
         ),

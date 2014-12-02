@@ -20,6 +20,7 @@ class Controller extends \Phalcon\Mvc\Controller
 
         $this->assets->collection('css-header')
             ->addCss('vendor/semantic-ui/semantic.min.css')
+            ->addCss('css/style.css')
             ->setLocal(true);
     }
 

@@ -1,16 +1,11 @@
 <?php
 
-/**
- * Form
- * @copyright Copyright (c) 2011 - 2014 Aleksandr Torosh (http://wezoom.com.ua)
- * @author Aleksandr Torosh <webtorua@gmail.com>
- */
 
 namespace Application\Form;
 
-use \Phalcon\Forms\Element\Hidden;
-use \Phalcon\Forms\Element\Check;
-use \Phalcon\Forms\Element\File;
+use Phalcon\Forms\Element\Check;
+use Phalcon\Forms\Element\File;
+use Phalcon\Forms\Element\Hidden;
 
 abstract class Form extends \Phalcon\Forms\Form
 {
@@ -28,91 +23,49 @@ abstract class Form extends \Phalcon\Forms\Form
         $html = '';
 
         $classAttr = $element->getAttribute('class');
-        $class = ($classAttr) ?  ' ' . $classAttr : '';
-
+        $class = ($classAttr) ? ' ' . $classAttr : '';
+        $printMessages = "";
         if (count($messages)) {
-            $html .= '<div class="alert alert-danger">';
+            $printMessages .= '<div class="ui red pointing prompt label transition">';
             foreach ($messages as $message) {
-                $html .= $message;
+                $printMessages .= $message;
             }
-            $html .= '</div>';
+            $printMessages .= '</div>';
         }
 
         if ($element instanceof Hidden) {
             echo $element;
         } else {
-            switch ($decorator) {
-                case 'block' : {
-                        switch (true) {
-                            case $element instanceof Check : {
-                                    $html .= '<div class="checkbox">';
-                                    $html .= '<label>';
-                                    $html .= $element;
-                                    $html .= $element->getLabel();
-                                    $html .= '</label>';
-                                    $html .= '</div>';
-                                }
-                                break;
-                            case $element instanceof File : {
-                                    $html .= '<div class="form-group">';
-                                    if ($element->getLabel()) {
-                                        $html .= '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
-                                    }
-                                    $html .= $element;
-                                    $html .= '</div>';
-                                }
-                                break;
-                            default : {
-                                    $element->setAttribute('class', 'form-control' . $class);
-                                    $html .= '<div class="form-group">';
-                                    if ($element->getLabel()) {
-                                        $html .= '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
-                                    }
-                                    $html .= $element;
-                                    $html .= '</div>';
-                                }
-                        }
-                        break;
-                    }
+            switch (true) {
+                case $element instanceof Check : {
+                    $html .= '<div class="checkbox">';
+                    $html .= '<label>';
+                    $html .= $element;
+                    $html .= $element->getLabel();
+                    $html .= '</label>';
+                    $html .= '</div>';
+                }
                     break;
-                case 'horizontal' : {
-                        switch (true) {
-                            case $element instanceof Check : {
-                                    $html .= '<div class="form-group">';
-                                    $html .= '<div class="col-sm-offset-2 col-sm-10">';
-                                    $html .= '<div class="checkbox">';
-                                    $html .= '<label>' . $element->getLabel();
-                                    $html .= $element;
-                                    $html .= '</label>';
-                                    $html .= '</div>';
-                                    $html .= '</div>';
-                                    $html .= '</div>';
-                                }
-                                break;
-                            case $element instanceof File : {
-                                    $html .= '<div class="form-group">';
-                                    if ($element->getLabel()) {
-                                        $html .= '<label class="control-label col-sm-2" for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
-                                    }
-                                    $html .= '<div class="col-sm-10">';
-                                    $html .= $element;
-                                    $html .= '</div>';
-                                    $html .= '</div>';
-                                }
-                                break;
-                            default : {
-                                    $element->setAttribute('class', 'form-control' . $class);
-                                    $html .= '<div class="form-group">';
-                                    if ($element->getLabel()) {
-                                        $html .= '<label class="control-label col-sm-2" for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
-                                    }
-                                    $html .= '<div class="col-sm-10">';
-                                    $html .= $element;
-                                    $html .= '</div>';
-                                    $html .= '</div>';
-                                }
-                        }
+                case $element instanceof File : {
+                    $html .= '<div class="form-group">';
+                    if ($element->getLabel()) {
+                        $html .= '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
                     }
+                    $html .= $element;
+                    $html .= '</div>';
+                }
+                    break;
+                default : {
+                $element->setAttribute('class', '' . $class);
+                $error = (count($messages) > 0 ? "error" : "");
+                $html .= '<div class="field ' . $error . '">';
+                if ($element->getLabel()) {
+                    $html .= '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
+                }
+                $html .= $element;
+                $html .= $printMessages;
+                $html .= '</div>';
+                }
             }
         }
 
