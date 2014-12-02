@@ -16,7 +16,12 @@ class Routes
             'module'     => 'frontend',
             'controller' => 'index',
             'action'     => 'login',
-        ))->setName('home');
+        ))->setName('login');
+        $router->add('/signup', array(
+            'module'     => 'frontend',
+            'controller' => 'index',
+            'action'     => 'signup',
+        ))->setName('signup');
         /*$router->add('/', array(
             'module'     => 'index',
             'controller' => 'index',

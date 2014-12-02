@@ -10,7 +10,7 @@ use Phalcon\Forms\Element\Hidden;
 abstract class Form extends \Phalcon\Forms\Form
 {
 
-    public function renderDecorated($name, $decorator = 'block')
+    public function renderDecorated($name)
     {
         if (!$this->has($name)) {
             return "form element '$name' not found<br />";
@@ -19,6 +19,7 @@ abstract class Form extends \Phalcon\Forms\Form
         $element = $this->get($name);
 
         $messages = $this->getMessagesFor($element->getName());
+        $errorClass = (count($messages) > 0 ? "error" : "");
 
         $html = '';
 
@@ -38,16 +39,17 @@ abstract class Form extends \Phalcon\Forms\Form
         } else {
             switch (true) {
                 case $element instanceof Check : {
-                    $html .= '<div class="checkbox">';
-                    $html .= '<label>';
+                    $html .= '<div class="inline field ' . $errorClass . '">';
+                    $html .= '<div class="ui checkbox">';
                     $html .= $element;
-                    $html .= $element->getLabel();
-                    $html .= '</label>';
+                    $html .= '<label>' . $element->getLabel() . '</label>';
+                    $html .= '</div>';
+                    $html .= $printMessages;
                     $html .= '</div>';
                 }
                     break;
                 case $element instanceof File : {
-                    $html .= '<div class="form-group">';
+                    $html .= '<div class="field">';
                     if ($element->getLabel()) {
                         $html .= '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
                     }
@@ -57,8 +59,7 @@ abstract class Form extends \Phalcon\Forms\Form
                     break;
                 default : {
                 $element->setAttribute('class', '' . $class);
-                $error = (count($messages) > 0 ? "error" : "");
-                $html .= '<div class="field ' . $error . '">';
+                $html .= '<div class="field ' . $errorClass . '">';
                 if ($element->getLabel()) {
                     $html .= '<label for="' . $element->getName() . '">' . $element->getLabel() . '</label>';
                 }

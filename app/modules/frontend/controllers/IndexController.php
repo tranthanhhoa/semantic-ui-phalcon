@@ -4,6 +4,8 @@ namespace FrontEnd\Controller;
 
 use Application\Mvc\Controller;
 use FrontEnd\Forms\LoginForm;
+use FrontEnd\Forms\UserForm;
+use FrontEnd\Models\Users;
 
 class IndexController extends Controller
 {
@@ -29,6 +31,25 @@ class IndexController extends Controller
             }
         }
         $this->view->loginForm = $loginForm;
+    }
+
+    public function signupAction()
+    {
+        $signupForm = new UserForm();
+        $model = Users::fakeData();//var_dump($model);exit;
+        if ($this->request->isPost()) {
+
+            if (!$signupForm->isValid($_POST)) {
+                foreach ($signupForm->getMessages() as $message) {
+                    echo $message;
+                }
+            } else {
+                $this->flash->success("Signup successfully !");
+            }
+        }else{
+            $signupForm->setEntity($model);
+        }
+        $this->view->signupForm = $signupForm;
     }
 
 }
