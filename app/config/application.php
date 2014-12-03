@@ -15,7 +15,7 @@ $env = array(
             'host'     => 'localhost',
             'username' => 'root',
             'password' => '',
-            'dbname'   => 'phalcon_skeleton',
+            'dbname'   => 'classicmodels',
             'charset'  => 'utf8',
         ),
     ),

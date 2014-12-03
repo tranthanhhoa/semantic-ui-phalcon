@@ -119,10 +119,10 @@ class Bootstrap
         $di->set('assets', $assets);
 
         $flash = new \Phalcon\Flash\Session(array(
-            'error'   => 'alert alert-danger',
-            'success' => 'alert alert-success',
-            'notice'  => 'alert alert-info',
-            'warning' => 'alert alert-warning',
+            'error'   => 'ui red message',
+            'success' => 'ui green message',
+            'notice'  => 'ui orange message',
+            'warning' => 'ui yellow message',
         ));
         $di->set('flash', $flash);
 

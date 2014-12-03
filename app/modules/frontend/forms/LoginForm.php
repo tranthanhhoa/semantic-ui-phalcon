@@ -7,6 +7,7 @@ use Application\Form\Form;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
+use Phalcon\Validation\Validator\Identical;
 
 class LoginForm extends Form
 {
@@ -39,8 +40,12 @@ class LoginForm extends Form
         ));
         $this->add($password);
 
+        // CSRF
         $csrf = new Hidden('csrf');
-        $csrf->setAttribute('value', $this->security->getToken());
+        $csrf->addValidator(new Identical(array(
+            'value' => $this->security->getSessionToken(),
+            'message' => 'CSRF validation failed'
+        )));
         $this->add($csrf);
     }
 }

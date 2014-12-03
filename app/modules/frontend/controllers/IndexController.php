@@ -5,7 +5,7 @@ namespace FrontEnd\Controller;
 use Application\Mvc\Controller;
 use FrontEnd\Forms\LoginForm;
 use FrontEnd\Forms\UserForm;
-use FrontEnd\Models\Users;
+use FrontEnd\Model\Users;
 
 class IndexController extends Controller
 {
@@ -21,20 +21,43 @@ class IndexController extends Controller
     {
         $loginForm = new LoginForm();
         if ($this->request->isPost()) {
-
             if (!$loginForm->isValid($_POST)) {
                 foreach ($loginForm->getMessages() as $message) {
                     echo $message;
                 }
             } else {
-                $this->flash->success("Login successfully !");
+                $email = $this->request->getPost('email');
+                $password = $this->request->getPost('password');
+                if ($email == "hoa@gmail.com" && $password == "1234") {
+                    $this->session->set('auth', true);
+                    $this->flash->success("Login successfully !");
+                    $this->response->redirect();
+                } else {
+                    $this->flash->error("Login fail !");
+                }
+
             }
         }
         $this->view->loginForm = $loginForm;
     }
 
+    public function handleLoginAction()
+    {
+        if ($this->request->isPost()) {
+            if ($this->security->checkToken()) {
+                echo "The token is ok";
+            } else {
+                echo "The token is not ok";
+            }
+        }
+
+    }
+
     public function signupAction()
     {
+        if (!$this->session->has('auth')) {
+            $this->response->redirect('login');
+        }
         $signupForm = new UserForm();
         $model = Users::fakeData();//var_dump($model);exit;
         if ($this->request->isPost()) {
@@ -46,10 +69,15 @@ class IndexController extends Controller
             } else {
                 $this->flash->success("Signup successfully !");
             }
-        }else{
+        } else {
             $signupForm->setEntity($model);
         }
         $this->view->signupForm = $signupForm;
     }
 
+    public function logoutAction()
+    {
+        $this->session->destroy();
+        $this->response->redirect();
+    }
 }

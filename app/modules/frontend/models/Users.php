@@ -1,5 +1,5 @@
 <?php
-namespace FrontEnd\Models;
+namespace FrontEnd\Model;
 
 use Phalcon\Mvc\Model\Validator\Uniqueness;
 use stdClass;
