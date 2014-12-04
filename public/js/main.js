@@ -17,6 +17,9 @@ $(document).ready(function () {
             year = currentData;
         }
         disableSelect(year);
+        if(month == ""){
+            $('#day option').not(':first').remove();
+        }
         if (month != "" && year != "") {
             $.ajax({
                 url: '/show-day',
