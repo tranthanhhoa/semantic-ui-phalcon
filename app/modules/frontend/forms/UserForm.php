@@ -43,6 +43,45 @@ class UserForm extends Form
         ));
         $this->add($gender);
 
+        $days = range(1,31);
+        $day = new Select('day',array_combine($days, $days),array(
+	        'useEmpty' => true,
+	        'emptyText' => '--Day--'
+        ));
+        $day->setLabel('Day');
+        $day->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Day is required.'
+            ))
+        ));
+        $this->add($day);
+
+        $months = range(1,12);
+        $month = new Select('month',array_combine($months, $months),array(
+	        'useEmpty' => true,
+	        'emptyText' => '--Month--'
+        ));
+        $month->setLabel('Month');
+        $month->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Month is required.'
+            ))
+        ));
+        $this->add($month);
+
+        $years = range(1950,date('Y'));
+        $year = new Select('year',array_combine($years, $years),array(
+	        'useEmpty' => true,
+	        'emptyText' => '--Year--'
+        ));
+        $year->setLabel('year');
+        $year->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Year is required.'
+            ))
+        ));
+        $this->add($year);
+
         $username = new Text('username');
         $username->setLabel('Username');
         $username->addValidators(array(

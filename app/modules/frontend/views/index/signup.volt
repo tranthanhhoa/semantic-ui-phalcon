@@ -6,6 +6,11 @@
        {{ signupForm.renderDecorated('firstName') }}
         {{ signupForm.renderDecorated('lastName') }}
     </div>
+    <div class="three fields">
+        {{ signupForm.renderDecorated('month')}}
+        {{ signupForm.renderDecorated('day')}}
+        {{ signupForm.renderDecorated('year')}}
+    </div>
     {{ signupForm.renderDecorated('gender') }}
     {{ signupForm.renderDecorated('username') }}
     {{ signupForm.renderDecorated('password') }}

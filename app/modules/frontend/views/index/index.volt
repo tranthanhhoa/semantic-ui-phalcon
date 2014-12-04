@@ -3,5 +3,5 @@
 <a href="/logout">Log out</a>
 {% endif %}
 {% if !session.has('auth') %}
-    <a href="/login">Log in</a>
+    <a href="/login">Log in</a> | <a href="signup">Sign up</a>
 {% endif %}

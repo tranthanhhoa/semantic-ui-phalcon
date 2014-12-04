@@ -27,16 +27,24 @@ class Routes
             'controller' => 'index',
             'action'     => 'signup',
         ))->setName('signup');
+	    $router->add('/show-day', array(
+		    'module'     => 'frontend',
+		    'controller' => 'index',
+		    'action'     => 'showDay',
+	    ))->setName('show day');
         $router->add('/logout', array(
             'module'     => 'frontend',
             'controller' => 'index',
             'action'     => 'logout',
         ))->setName('logout');
+
         $router->add('/offices', array(
             'module'     => 'frontend',
             'controller' => 'offices',
             'action'     => 'index',
         ))->setName('logout');
+
+
         /*$router->add('/', array(
             'module'     => 'index',
             'controller' => 'index',
