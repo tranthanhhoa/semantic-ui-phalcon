@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>{{ helper.title().append('Phalcon Skeleton') }}{{ helper.title().get() }}</title>
+    <title>{{ helper.title().append('Semantic UI - Phalcon Skeleton') }}{{ helper.title().get() }}</title>
     {{ helper.meta().get('description') }}
     {{ helper.meta().get('keywords') }}
     {{ assets.outputCss('css-header') }}

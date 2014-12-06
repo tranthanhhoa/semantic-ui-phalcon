@@ -4,47 +4,36 @@ $(document).ready(function () {
     }, function () {
         $(this).next('div.prompt').removeClass('visible');
     });
-    disableSelect($('#year').val());
+    disableDay($('#month').val(), $('#year').val());
     $('#month,#year').change(function (e) {
-        var month, year, currentData;
+        var month, year, currentData, target, isMonth, isYear;
+        target = $(e.target);
+        isMonth = target.is('select#month');
+        isYear = target.is('select#year');
         currentData = $(this).val();
+        month = isMonth ? currentData : $("#month").val();
+        year = isYear ? currentData : $("#year").val();
 
-        if ($(e.target).is("select#month")) {
-            month = currentData;
-            year = $("#year").val();
-        } else {
-            month = $("#month").val();
-            year = currentData;
-        }
-        disableSelect(year);
-        if(month == ""){
-            $('#day option').not(':first').remove();
-        }
-        if (month != "" && year != "") {
-            $.ajax({
-                url: '/show-day',
-                type: 'POST',
-                data: {"month": month, "year": year},
-                success: function (result) {
-                    $('#day option').not(':first').remove();
-                    if(result > 0){
-                        for (var i = 1; i <= result; i++) {
-                            $('#day').append($("<option></option>").attr("value", i).text(i));
-                        }
-                    }
-                    return;
+        disableDay(month, year);
+        $('#day option').not(':first').remove();
+        if (month != "" && year != "" || 0 < month < 13) {
+            var day = getDayInMonth(year, month);
+            if (day > 0) {
+                for (var i = 1; i <= day; i++) {
+                    $('#day').append($("<option></option>").attr("value", i).text(i));
                 }
-            });
+            }
+            return;
         }
     });
 
-    function disableSelect(year) {
-        if (year === "") {
-            $('#month').prop('disabled', 'disabled');
-            $('#day').prop('disabled', 'disabled');
-        } else {
-            $('#month').prop('disabled', false);
-            $('#day').prop('disabled', false);
-        }
+    function getDayInMonth(year, month) {
+        var day = new Date(year, month, 0);
+        return day.getDate();
+    }
+
+    function disableDay(month, year) {
+        var disable = !!(month == "" || year == "");
+        $('#day').prop('disabled', disable);
     }
 });
